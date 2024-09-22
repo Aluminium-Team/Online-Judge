@@ -1,4 +1,4 @@
-package com.aluminium.online_judge.controller;
+package com.aluminium.online_judge.model;
 
 import jakarta.persistence.*;
 

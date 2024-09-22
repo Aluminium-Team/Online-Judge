@@ -1,8 +1,6 @@
-package com.aluminium.online_judge.controller;
+package com.aluminium.online_judge.model;
 
-import com.aluminium.online_judge.model.User;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
