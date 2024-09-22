@@ -1,9 +1,7 @@
 package com.aluminium.online_judge.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,30 +10,39 @@ import java.util.List;
 @Table(name = "problems")
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     @Column(name = "test_cases_file_path", nullable = false)
     private String testCasesFilePath;
 
+    @NonNull
     @Column(nullable = false)
     private String name;
 
+    @NonNull
     @Column(name = "time_limit", nullable = false)
     private Double timeLimit;
 
+    @NonNull
     @Column(name = "memory_limit", nullable = false)
     private Double memoryLimit;
 
+    @NonNull
     @Column(nullable = false, columnDefinition = "TEXT")
     private String statement;
 
+    @NonNull
     @Column(name = "input_description", columnDefinition = "TEXT")
     private String inputDescription;
 
+    @NonNull
     @Column(name = "output_description", columnDefinition = "TEXT")
     private String outputDescription;
 
