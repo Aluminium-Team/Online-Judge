@@ -1,6 +1,7 @@
 package com.aluminium.online_judge.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Table(name = "problems")
 @RequiredArgsConstructor
 @NoArgsConstructor
+@Data
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
