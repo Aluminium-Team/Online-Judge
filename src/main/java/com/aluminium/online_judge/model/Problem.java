@@ -8,11 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "problems")
-@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 @Builder
+@Data
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +54,10 @@ public class Problem {
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Submission> submissions;
+
+    public Problem() {
+        //Builder will not work without no args constructor
+    }
 
     @PrePersist
     protected void onCreate() {

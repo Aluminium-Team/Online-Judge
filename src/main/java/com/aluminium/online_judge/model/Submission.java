@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "submissions")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Submission {
     @Id
@@ -56,5 +54,9 @@ public class Submission {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public Submission() {
+        //Builder will not work without no args constructor
     }
 }
