@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "submissions")
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
-@Builder
+@Builder(builderMethodName = "lombokBuilder")
 public class Submission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +20,12 @@ public class Submission {
     @Column(nullable = false)
     private String status;
 
-    @NonNull
     @Column(name = "judge0_reference_token")
     private String judge0ReferenceToken;
 
-    @NonNull
     @Column(name = "time")
     private Double time;
 
-    @NonNull
     @Column(name = "memory")
     private Double memory;
 
@@ -56,7 +55,16 @@ public class Submission {
         createdAt = LocalDateTime.now();
     }
 
-    public Submission() {
-        //Builder will not work without no args constructor
+    public static SubmissionBuilder builder(String status,
+                                                 String code,
+                                                 Integer currentTestCase,
+                                                 User user,
+                                                 Problem problem) {
+        return lombokBuilder()
+                .status(status)
+                .code(code)
+                .currentTestCase(currentTestCase)
+                .user(user)
+                .problem(problem);
     }
 }
