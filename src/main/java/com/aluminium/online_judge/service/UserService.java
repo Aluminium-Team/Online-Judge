@@ -33,6 +33,11 @@ public class UserService {
         return (UUID) authentication.getPrincipal();
     }
 
+    public User getUserFromAuth(Authentication authentication){
+        UUID userId = getUserIdFromAuth(authentication);
+        return getUserById(userId);
+    }
+
     public ResponseEntity<Map<String, Object>> getUserInfo(UUID userId) {
         User user;
         try {
