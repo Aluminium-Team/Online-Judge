@@ -8,7 +8,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "problems")
-@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@Builder(builderMethodName = "lombokBuilder")
 @Data
 public class Problem {
     @Id
@@ -55,8 +57,22 @@ public class Problem {
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Submission> submissions;
 
-    public Problem() {
-        //Builder will not work without no args constructor
+    public static ProblemBuilder builder(String testCasesFilePath,
+                                  String name,
+                                  Double timeLimit,
+                                  Double memoryLimit,
+                                  String statement,
+                                  String inputDescription,
+                                  String outputDescription
+                                         ) {
+        return lombokBuilder()
+                .testCasesFilePath(testCasesFilePath)
+                .name(name)
+                .timeLimit(timeLimit)
+                .memoryLimit(memoryLimit)
+                .statement(statement)
+                .inputDescription(inputDescription)
+                .outputDescription(outputDescription);
     }
 
     @PrePersist
