@@ -5,6 +5,7 @@ import com.aluminium.online_judge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -26,6 +27,10 @@ public class UserService {
     public User getUserById(UUID id) {
         Optional<User> userOptional = userRepository.findById(id);
         return userOptional.orElseGet(User::new);
+    }
+
+    public UUID getUserIdFromAuth(Authentication authentication){
+        return (UUID) authentication.getPrincipal();
     }
 
     public ResponseEntity<Map<String, Object>> getUserInfo(UUID userId) {

@@ -38,7 +38,7 @@ public class SubmissionService {
 
     public void handleSubmission(SubmissionInput submissionInput, Authentication authentication){
 
-        UUID userId = getUserIdFromAuth(authentication);
+        UUID userId = userService.getUserIdFromAuth(authentication);
         User user = userService.getUserById(userId);
 
         Long problemId = submissionInput.getProblemId();
@@ -50,9 +50,7 @@ public class SubmissionService {
 
     }
 
-    public UUID getUserIdFromAuth(Authentication authentication){
-        return (UUID) authentication.getPrincipal();
-    }
+
 
     private Submission createSubmission(SubmissionInput submissionInput, User user, Problem problem) {
         return Submission.builder(
