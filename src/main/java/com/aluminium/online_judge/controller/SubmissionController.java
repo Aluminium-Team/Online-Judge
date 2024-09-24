@@ -1,5 +1,6 @@
 package com.aluminium.online_judge.controller;
 
+import com.aluminium.online_judge.IO.SubmissionIO.SubmissionInput;
 import com.aluminium.online_judge.model.Submission;
 import com.aluminium.online_judge.repository.SubmissionRepository;
 import com.aluminium.online_judge.service.SubmissionService;
@@ -17,29 +18,18 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/v1/users")
+@RequestMapping(path = "/api/v1")
 public class SubmissionController {
 
     @Autowired
     SubmissionService submissionService;
 
     @PostMapping("/submit")
-    public ResponseEntity<String> createSubmission(@RequestBody Submission submission, Authentication authentication){
-        UUID userId = (UUID) authentication.getPrincipal();
-        Long problemId = submission.getProblem().getId();
-        try {
-            submissionService.saveSubmission(submission,userId,problemId);
-            submissionService.pushSubmissionToQueue(submission);
-            return ResponseEntity.status(HttpStatus.OK).body("Submission sent successfully.");
-        }
-        catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Problem not found for the given ID.");
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("An unexpected error occurred");
-        }
+    public ResponseEntity<String> receiveSubmission(@RequestBody SubmissionInput submissionInput, Authentication authentication){
+
+        submissionService.handleSubmission(submissionInput,authentication);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Submission sent successfully.");
 
     }
 }
