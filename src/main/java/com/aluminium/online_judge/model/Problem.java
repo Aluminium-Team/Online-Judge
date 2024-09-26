@@ -8,9 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "problems")
-@Builder
-@Data
+@Getter
+@NoArgsConstructor
 public class Problem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,24 +50,72 @@ public class Problem {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Submission> submissions;
 
-    public Problem() {
-        //Builder will not work without no args constructor
+    private Problem(String testCasesFilePath, String name, Double timeLimit, Double memoryLimit,
+                    String statement, String inputDescription, String outputDescription, String notes) {
+        this.testCasesFilePath = testCasesFilePath;
+        this.name = name;
+        this.timeLimit = timeLimit;
+        this.memoryLimit = memoryLimit;
+        this.statement = statement;
+        this.inputDescription = inputDescription;
+        this.outputDescription = outputDescription;
+        this.notes = notes;
+        onCreate();
+    }
+
+
+    public static ProblemBuilder builder(String testCasesFilePath, String name, Double timeLimit,
+                                         Double memoryLimit, String statement, String inputDescription,
+                                         String outputDescription) {
+        return new ProblemBuilder(testCasesFilePath, name, timeLimit, memoryLimit, statement, inputDescription, outputDescription);
+    }
+
+
+    public static class ProblemBuilder {
+        private final String testCasesFilePath;
+        private final String name;
+        private final Double timeLimit;
+        private final Double memoryLimit;
+        private final String statement;
+        private final String inputDescription;
+        private final String outputDescription;
+        private String notes;
+
+        private ProblemBuilder(String testCasesFilePath, String name, Double timeLimit, Double memoryLimit,
+                               String statement, String inputDescription, String outputDescription) {
+            this.testCasesFilePath = testCasesFilePath;
+            this.name = name;
+            this.timeLimit = timeLimit;
+            this.memoryLimit = memoryLimit;
+            this.statement = statement;
+            this.inputDescription = inputDescription;
+            this.outputDescription = outputDescription;
+        }
+
+        public ProblemBuilder notes(String notes) {
+            this.notes = notes;
+            return this;
+        }
+
+        public Problem build() {
+            return new Problem(testCasesFilePath, name, timeLimit, memoryLimit, statement, inputDescription, outputDescription, notes);
+        }
     }
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
