@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProblemService {
@@ -13,8 +14,9 @@ public class ProblemService {
     @Autowired
     ProblemRepository problemRepository;
 
-    public Optional<Problem> getProblemById(Long problemId){
-        return problemRepository.findById(problemId);
+    public Problem getProblemById(Long id) {
+        Optional<Problem> problemOptional = problemRepository.findById(id);
+        return problemOptional.orElseGet(Problem::new);
     }
 
 }

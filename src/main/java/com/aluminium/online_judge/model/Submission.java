@@ -1,5 +1,6 @@
 package com.aluminium.online_judge.model;
 
+import com.aluminium.online_judge.Enums.SubmissionStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class Submission {
 
     @NonNull
     @Column(nullable = false)
-    private String status;
+    private SubmissionStatus status;
 
     @Column(name = "judge0_reference_token")
     private String judge0ReferenceToken;
@@ -53,17 +54,15 @@ public class Submission {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        status = SubmissionStatus.IN_QUEUE;
+        currentTestCase = 0;
     }
 
-    public static SubmissionBuilder builder(String status,
-                                                 String code,
-                                                 Integer currentTestCase,
+    public static SubmissionBuilder builder(String code,
                                                  User user,
                                                  Problem problem) {
         return lombokBuilder()
-                .status(status)
                 .code(code)
-                .currentTestCase(currentTestCase)
                 .user(user)
                 .problem(problem);
     }
