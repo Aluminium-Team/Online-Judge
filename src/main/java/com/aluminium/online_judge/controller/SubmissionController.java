@@ -18,16 +18,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/users")
+@RequestMapping(path = "/api/v1/submissions")
 public class SubmissionController {
 
     @Autowired
     SubmissionService submissionService;
 
+    @Autowired
+    CreateSubmissionConverter createSubmissionConverter;
+
     @PostMapping("/submit")
     public ResponseEntity<Void> createSubmission(@RequestBody CreateSubmissionDTO createSubmissionInputDT0, Authentication authentication){
 
-        CreateSubmissionInput createSubmissionInput = CreateSubmissionConverter.toCreateSubmissionInput(
+        CreateSubmissionInput createSubmissionInput = createSubmissionConverter.toCreateSubmissionInput(
                 createSubmissionInputDT0,
                 authentication
         );
@@ -36,8 +39,9 @@ public class SubmissionController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/Status")
-    public  ResponseEntity<GetStatusOutput> getSubmission(@RequestBody GetSubmissionDTO getSubmissionDTO) {
+    @GetMapping("/status")
+    public  ResponseEntity<GetStatusOutput> getSubmission(@RequestParam Long submissionId) {
+        GetSubmissionDTO getSubmissionDTO = new GetSubmissionDTO(submissionId);
         GetSubmissionInput getSubmissionInput = GetSubmissionConverter.toGetSubmissionInput(
                 getSubmissionDTO
         );

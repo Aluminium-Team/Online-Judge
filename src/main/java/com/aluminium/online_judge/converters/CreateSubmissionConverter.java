@@ -9,19 +9,20 @@ import com.aluminium.online_judge.service.ProblemService;
 import com.aluminium.online_judge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-
+@Component
 public class CreateSubmissionConverter {
 
     @Autowired
-    private static UserService userService;
+    private UserService userService;
 
     @Autowired
-    private static ProblemService problemService;
+    private ProblemService problemService;
 
-    public static CreateSubmissionInput toCreateSubmissionInput(CreateSubmissionDTO submissionInputDT0, Authentication authentication) {
+    public CreateSubmissionInput toCreateSubmissionInput(CreateSubmissionDTO submissionInputDT0, Authentication authentication) {
 
         Long problem_id = submissionInputDT0.getProblem_id();
         String code = submissionInputDT0.getCode();

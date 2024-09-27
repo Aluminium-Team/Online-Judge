@@ -7,6 +7,4 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetSubmissionDTO {
     Long submission_id;
-
-
 }

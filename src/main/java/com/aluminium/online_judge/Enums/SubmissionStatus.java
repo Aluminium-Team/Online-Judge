@@ -7,4 +7,11 @@ public enum SubmissionStatus {
     RUNTIME_ERROR,
     ACCEPTED,
     COMPILATION_ERROR;
+
+    public String getStatusMessage(int testCaseNumber) {
+        return switch (this) {
+            case ACCEPTED, IN_QUEUE -> this.name();
+            default -> this.name() + " on test case " + testCaseNumber;
+        };
+    }
 }

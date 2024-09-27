@@ -17,7 +17,6 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     @Column(nullable = false)
     private SubmissionStatus status;
 
@@ -37,7 +36,6 @@ public class Submission {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @NonNull
     @Column(name = "current_test_case")
     private Integer currentTestCase;
 
