@@ -11,9 +11,7 @@ public class CreateMessageQueueConverter {
     public static CreateMessageQueueInput toCreateMessageQueueInput(Submission submission) {
 
         Long id = submission.getId();
-//        Long langId = submission.getLangId();
-//        This fixed value is just for testing until we add the langid
-        Long langId = 5L;
+        int langId = submission.getLangId();
         User user = submission.getUser();
         Long problemId = submission.getProblem().getId();
         Integer currentTestcase = submission.getCurrentTestCase();

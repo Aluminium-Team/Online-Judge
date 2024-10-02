@@ -18,6 +18,9 @@ public class Submission {
     private Long id;
 
     @Column(nullable = false)
+    private int langId;
+
+    @Column(nullable = false)
     private SubmissionStatus status;
 
     @Column(name = "judge0_reference_token")
@@ -54,14 +57,17 @@ public class Submission {
         createdAt = LocalDateTime.now();
         status = SubmissionStatus.IN_QUEUE;
         currentTestCase = 0;
+        judge0ReferenceToken = "";
     }
 
     public static SubmissionBuilder builder(String code,
                                                  User user,
-                                                 Problem problem) {
+                                                 Problem problem,
+                                                    int lang_Id) {
         return lombokBuilder()
                 .code(code)
                 .user(user)
-                .problem(problem);
+                .problem(problem)
+                .langId(lang_Id);
     }
 }

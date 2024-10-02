@@ -31,7 +31,7 @@ public class CreateSubmissionConverter {
         if (problem_id != null && code != null && lang_id != null) {
             User user = userService.getUserById((UUID)authentication.getPrincipal());
             Problem problem = problemService.getProblemById(submissionInputDT0.getProblem_id());
-            CreateSubmissionInput createSubmissionInput = new CreateSubmissionInput(user, problem, submissionInputDT0.getCode());
+            CreateSubmissionInput createSubmissionInput = new CreateSubmissionInput(user, problem, submissionInputDT0.getCode(), lang_id);
 
             return createSubmissionInput;
         } else if (problem_id != null) {

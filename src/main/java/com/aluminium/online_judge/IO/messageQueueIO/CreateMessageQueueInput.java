@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class CreateMessageQueueInput {
     private Long submissionId;
-    private Long langId;
+    private int langId;
     private Long problemId;
     private int currentTestCase;
     private String status;

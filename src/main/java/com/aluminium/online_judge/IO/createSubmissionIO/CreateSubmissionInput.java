@@ -11,4 +11,5 @@ public class CreateSubmissionInput {
     User user;
     Problem problem;
     String code;
+    int langId;
 }

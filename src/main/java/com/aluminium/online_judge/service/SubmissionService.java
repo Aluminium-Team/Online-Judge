@@ -34,7 +34,8 @@ public class SubmissionService {
         Submission submission = Submission.builder(
                 input.getCode(),
                 input.getUser(),
-                input.getProblem()).build();
+                input.getProblem(),
+                input.getLangId()).build();
 
         saveSubmission(submission);
     }
@@ -56,8 +57,6 @@ public class SubmissionService {
     private String pushToQueue(Submission submission){
         CreateMessageQueueInput createMessageQueueInput = CreateMessageQueueConverter.toCreateMessageQueueInput(
                 submission);
-
-        System.out.println(createMessageQueueInput.getSubmissionId());
 
         String url = "http://127.0.0.1:1111/api/redis/push";
         String response = restTemplate.postForObject(url, createMessageQueueInput, String.class);
