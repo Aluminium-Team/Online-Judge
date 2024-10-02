@@ -62,14 +62,18 @@ public class Problem {
                                   Double timeLimit,
                                   Double memoryLimit,
                                   String statement,
-                                  String inputDescription) {
+                                  String inputDescription,
+                                         String outputDescription,
+                                         String notes) {
         return lombokBuilder()
                 .testCasesFilePath(testCasesFilePath)
                 .name(name)
                 .timeLimit(timeLimit)
                 .memoryLimit(memoryLimit)
                 .statement(statement)
-                .inputDescription(inputDescription);
+                .inputDescription(inputDescription)
+                .outputDescription(outputDescription)
+                .notes(notes);
     }
 
     @PrePersist

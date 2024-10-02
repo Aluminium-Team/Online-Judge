@@ -26,7 +26,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/users/**",
                                 "/api/v1/submissions/**",
                                 "/api/v1/logout",
-                                "/api/v1/generateAccessToken").authenticated()
+                                "/api/v1/generateAccessToken",
+                                "/api/v1/problems/**").authenticated()
                         .anyRequest().permitAll())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
