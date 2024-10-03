@@ -57,7 +57,6 @@ public class Submission {
         createdAt = LocalDateTime.now();
         status = SubmissionStatus.IN_QUEUE;
         currentTestCase = 0;
-        judge0ReferenceToken = "";
     }
 
     public static SubmissionBuilder builder(String code,
